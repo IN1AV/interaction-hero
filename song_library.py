@@ -5,7 +5,8 @@ from classes.Song import Song
 
 example_song_short = Song(
     "tarkan_simarik.txt",
-    notes_bpm=380                # bg_game_header
+    notes_bpm=280,
+    bg_game_header="Tarkan Simarik",             # bg_game_header
 )
 
 example_song_long = Song(
