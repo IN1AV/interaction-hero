@@ -5,7 +5,7 @@ from math import floor
 
 class BackgroundHandler():
     
-    background_color = (255,255,255)  # Default is RGB code for white
+    background_color = (28, 28, 28)  # Default is RGB code for white
 
     def __init__(self, song):
         # Set the font based of the settings in the Song
