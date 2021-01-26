@@ -50,7 +50,23 @@ class ScoreHandler(sprite.Sprite):
             self.save_score()
 
     def change_score(self, score_difference):
-        self.score += score_difference
+        # add to score streak with positive score
+        if score_difference > 0:
+            self.score_streak += 1
+        # else reset streak and multiplier
+        else:
+            self.score_streak = 0
+            self.score_multiplier = 1
+        # change multiplier based on how many notes were hit in succession
+        if self.score_streak >= 75:
+            self.score_multiplier = 8
+        elif self.score_streak >= 50:
+            self.score_multiplier = 4
+        elif self.score_streak >= 25:
+            self.score_multiplier = 2
+        else:
+            self.score_multiplier = 1
+        self.score += score_difference * self.score_multiplier
         
     def get_high_score(self):
         played_song = self.game_state.song.get_notes_filename()
@@ -71,5 +87,5 @@ class ScoreHandler(sprite.Sprite):
         with open('scores.txt', 'a') as f:
             text = self.game_state.song.get_notes_filename() + ' ' + str(self.score) + '\n'
             f.write(text)
-        print('The highscore is', self.get_high_score(), '- See ScoreHandler.py for new implementation')
-        print('Your score is', self.score, '- See ScoreHandler.py for new implementation')
+        # print('The highscore is', self.get_high_score(), '- See ScoreHandler.py for new implementation')
+        # print('Your score is', self.score, '- See ScoreHandler.py for new implementation')
