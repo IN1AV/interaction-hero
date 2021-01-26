@@ -11,7 +11,7 @@ class FallingNote(pygame.sprite.Sprite):
         self.note = note
         
         self.lane_index = lane_i
-        self.image, self.rect = load_image("musicnote-example.png", -1)
+        self.image, self.rect = load_image("musicnote90x90.png", -1)
         screen = pygame.display.get_surface()
         self.area = screen.get_rect()  # ONLY USE THIS TO CHECK IT HAS FALLEN OF SCREEN
         self.rect.topleft = self._new_start_pos()
@@ -22,7 +22,7 @@ class FallingNote(pygame.sprite.Sprite):
 
 
     def _new_start_pos(self):
-        window_size = (1280, 720)
+        # window_size = (1280, 720)
         posx = self.lane_index * 110 + 420
         posy = -self.rect.height
         return posx, posy
@@ -63,6 +63,3 @@ class FallingNote(pygame.sprite.Sprite):
         self.music_player_ref.play_note(self.note)
         if not self.shrinking:
             self.shrinking = 1
-
-    def is_hit(self):
-        return self.is_hit

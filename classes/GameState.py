@@ -40,10 +40,10 @@ class GameState():
         # Define Hitboxes
         input_keys = ['d', 'f', 'j', 'k']
         self.hitboxes = [
-            Hitbox('hitbox-example.png', 0, input_keys[0], self.allsprites),
-            Hitbox('hitbox-example.png', 1, input_keys[1], self.allsprites),
-            Hitbox('hitbox-example.png', 2, input_keys[2], self.allsprites),
-            Hitbox('hitbox-example.png', 3, input_keys[3], self.allsprites),
+            Hitbox('hitbox90x90.png', 0, input_keys[0], self.allsprites),
+            Hitbox('hitbox90x90.png', 1, input_keys[1], self.allsprites),
+            Hitbox('hitbox90x90.png', 2, input_keys[2], self.allsprites),
+            Hitbox('hitbox90x90.png', 3, input_keys[3], self.allsprites),
         ]
 
 

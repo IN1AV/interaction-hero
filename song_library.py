@@ -13,5 +13,12 @@ example_song_short = Song(
 )
 
 example_song_long = Song(
-    'ode_to_joy.txt',
+    "ode_to_joy.txt",
+    font_filename='RobotoMono-VariableFont_wght.ttf',
+    bg_game_header="Ode to Joy"
+)
+
+simarik = Song(
+    "tarkan_simarik.txt",
+    notes_bpm=280
 )
