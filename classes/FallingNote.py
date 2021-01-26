@@ -22,7 +22,7 @@ class FallingNote(pygame.sprite.Sprite):
 
 
     def _new_start_pos(self):
-        window_size = (1280, 720)
+        # window_size = (1280, 720)
         posx = self.lane_index * 110 + 420
         posy = -self.rect.height
         return posx, posy
@@ -64,5 +64,3 @@ class FallingNote(pygame.sprite.Sprite):
         if not self.shrinking:
             self.shrinking = 1
 
-    def is_hit(self):
-        return self.is_hit

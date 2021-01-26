@@ -40,7 +40,7 @@ class BackgroundHandler():
 
 
     def calculate_play_area_size(self):
-        window_size = (1280, 720)
+        # window_size = (1280, 720)
         play_area = pygame.Surface((440, 720), pygame.SRCALPHA, 32)
         # make the surface white (or other defined bg color)
         play_area.fill(self.background_color)
