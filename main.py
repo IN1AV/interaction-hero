@@ -11,14 +11,13 @@ def main():
     # Set screen size. Don't change this unless you know what you are doing!
     screen = pygame.display.set_mode((1280, 720))
     # Set the window title
-    pygame.display.set_caption("IAT Challengeweek: Interaction Hero")
+    pygame.display.set_caption("AV Mania")
 
     # Keeps track of all sprites to be updated every frame
     allsprites = pygame.sprite.Group()
 
     # Song to be used in game. Only one can be used.
-    song = song_library.simarik
-    # song = song_library.example_song_short  # Short random song for debugging
+    song = song_library.example_song_short  # Short random song for debugging
     # song = song_library.example_song_long  # Ode To Joy
 
     # Create game_state instance, this holds all required game info

@@ -38,12 +38,12 @@ class GameState():
         self.sounds_miss = load_sound(song.get_sound_miss())
         
         # Define Hitboxes
-        input_keys = ['d', 'f', 'j', 'k']
+        input_keys = ['a', 's', 'd', 'f']
         self.hitboxes = [
-            Hitbox('hitbox-turkey.png', 0, input_keys[0], self.allsprites),
-            Hitbox('hitbox-turkey.png', 1, input_keys[1], self.allsprites),
-            Hitbox('hitbox-turkey.png', 2, input_keys[2], self.allsprites),
-            Hitbox('hitbox-turkey.png', 3, input_keys[3], self.allsprites),
+            Hitbox('hitbox-example.png', 0, input_keys[0], self.allsprites),
+            Hitbox('hitbox-example.png', 1, input_keys[1], self.allsprites),
+            Hitbox('hitbox-example.png', 2, input_keys[2], self.allsprites),
+            Hitbox('hitbox-example.png', 3, input_keys[3], self.allsprites),
         ]
 
 
