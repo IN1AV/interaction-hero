@@ -5,13 +5,12 @@ from math import floor
 
 class BackgroundHandler():
     
-    background_color = (28, 28, 28)  # Default is RGB code for white
+    background_color = (255,255,255, 0)  # Default is RGBA code for white
 
     def __init__(self, song):
         # Set the font based of the settings in the Song
-        self.font = load_font(song.get_font_filename(), 36)
+        self.font = load_font("Calibri.ttf", 18)
         # Make it bold
-        self.font.set_bold(True)
 
         # Get a list of all the background
         self.background_list = self._get_all_backgrounds(
@@ -42,7 +41,7 @@ class BackgroundHandler():
 
     def calculate_play_area_size(self):
         window_size = (1280, 720)
-        play_area = pygame.Surface((440, 720))
+        play_area = pygame.Surface((440, 720), pygame.SRCALPHA, 32)
         # make the surface white (or other defined bg color)
         play_area.fill(self.background_color)
 
@@ -61,9 +60,10 @@ class BackgroundHandler():
         background.blit(play_area, play_area_loc)
 
         # Write something on each background
-        text = self.font.render(play_text, 1, (10, 10, 10))
-        textpos = text.get_rect(centerx=background.get_width() / 2)
+        text = self.font.render(play_text, 1, (0, 0, 0))
+        textpos = text.get_rect(centerx=(text.get_width() / 2))
         textpos.top += 10
+        textpos.left += 10
         background.blit(text, textpos)
         background.convert()
         return background

@@ -4,21 +4,10 @@ from classes.Song import Song
 # Example below is also usefull in understanding the working of the different attributes of a Song.
 
 example_song_short = Song(
-    'example_notes.txt',            	# notes_filename
-    180,                                # notes_bpm which decides the speed of falling notes
-    'RobotoMono-VariableFont_wght.ttf', # font_filename in data folder
-    None,                               # bg_image_dir, the subdirectory of the data/backgrounds directory
-    500,                                # bg_image_interval_ms
-    'Interaction Hero',                 # bg_game_header
+    "tarkan_simarik.txt",
+    notes_bpm=380                # bg_game_header
 )
 
 example_song_long = Song(
-    "ode_to_joy.txt",
-    font_filename='RobotoMono-VariableFont_wght.ttf',
-    bg_game_header="Ode to Joy"
-)
-
-simarik = Song(
-    "tarkan_simarik.txt",
-    notes_bpm=280
+    'ode_to_joy.txt',
 )

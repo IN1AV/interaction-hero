@@ -6,7 +6,7 @@ def load_image(name, colorkey=None):
     data_dir = os.path.join(get_main_dir(), 'data')
     fullname = os.path.join(data_dir, name)
     try:
-        image = pygame.image.load(fullname)
+        image = pygame.image.load(fullname).convert_alpha()
     except pygame.error:
         print("Cannot load image:", fullname)
         raise SystemExit(str(geterror()))

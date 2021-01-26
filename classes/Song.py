@@ -51,3 +51,7 @@ class Song():
 
     def get_notes_bpm(self):
         return self.notes_bpm
+
+
+    def get_input_keys(self):
+        return self.input_keys
