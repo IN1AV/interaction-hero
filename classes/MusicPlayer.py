@@ -128,7 +128,8 @@ class MusicPlayer():
             quit()
 
         # Change this in case you want hit notes to make different sounds
-        self.player.set_instrument(10)  
+        # http://www.ccarh.org/courses/253/handout/gminstruments/
+        self.player.set_instrument(0)
 
         # Load all the notes from the notes file
         self.liedje = self._read_file(song.get_notes_filename())

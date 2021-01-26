@@ -37,8 +37,11 @@ def main():
 
     # Prepare game objects
     clock = pygame.time.Clock()
-    startButton = Button(500, 300, 140, 40, ' Start', game_state.restart, song.get_font_filename(), allsprites, game_state)
-    quitButton = Button(500, 350, 140, 40, ' Quit', quit, song.get_font_filename(), allsprites, game_state)
+    # TODO: figure out button colors
+    startButton = Button(560, 300, 140, 40, '       Start', game_state.restart, song.get_font_filename(),
+        allsprites, game_state)
+    quitButton = Button(560, 350, 140, 40, '       Quit', quit, song.get_font_filename(),
+        allsprites, game_state)
 
     # Main loop
     going = True

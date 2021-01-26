@@ -40,10 +40,11 @@ class ScoreHandler(sprite.Sprite):
     # This is called every frame
     def update(self):
         if self.game_state.state == 'playing':
-            print('Current score: ' + str(self.score))
+            # print('Current score: ' + str(self.score))
+            print(f"Streak: {self.score_streak}, multiplier: {self.score_multiplier}")
             pass
         elif self.played_once == True:
-            print('Your final score: ' + str(self.score))
+            # print('Your final score: ' + str(self.score))
             pass
 
         if not self.game_state.state == 'playing' and not self.score_is_saved:
