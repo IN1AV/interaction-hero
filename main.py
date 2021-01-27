@@ -17,8 +17,9 @@ def main():
     allsprites = pygame.sprite.Group()
 
     # Song to be used in game. Only one can be used.
-    song = song_library.example_song_short  # Short random song for debugging
+    # song = song_library.example_song_short  # Short random song for debugging
     # song = song_library.example_song_long  # Ode To Joy
+    song = song_library.tarkan_simarik
 
     # Create game_state instance, this holds all required game info
     game_state = GameState(allsprites, song)
@@ -38,9 +39,9 @@ def main():
     # Prepare game objects
     clock = pygame.time.Clock()
     # TODO: figure out button colors
-    startButton = Button(560, 300, 140, 40, '       Start', game_state.restart, song.get_font_filename(),
+    startButton = Button(560, 300, 140, 40, '      Start', game_state.restart, song.get_font_filename(),
         allsprites, game_state)
-    quitButton = Button(560, 350, 140, 40, '       Quit', quit, song.get_font_filename(),
+    quitButton = Button(560, 350, 140, 40, '      Quit', quit, song.get_font_filename(),
         allsprites, game_state)
 
     # Main loop

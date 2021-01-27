@@ -12,7 +12,7 @@ class Song():
         # Otherwise leave as None
         bg_image_dir=None,  
         bg_image_interval_ms = 1000,
-        bg_game_header='Hit the notes!',
+        bg_game_header="AV Mania",
 
         sound_miss='sound_fail.wav',
     ):
@@ -51,7 +51,3 @@ class Song():
 
     def get_notes_bpm(self):
         return self.notes_bpm
-
-
-    def get_input_keys(self):
-        return self.input_keys

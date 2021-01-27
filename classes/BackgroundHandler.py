@@ -63,7 +63,7 @@ class BackgroundHandler():
         text = self.font.render(play_text, 1, (0, 0, 0))
         textpos = text.get_rect(centerx=(text.get_width() / 2))
         textpos.top += 10
-        textpos.left += 10
+        textpos.left += 560
         background.blit(text, textpos)
         background.convert()
         return background
