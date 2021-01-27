@@ -88,6 +88,25 @@ def main():
                 for event in eventlist:
                     if event.type == pygame.KEYDOWN and event.unicode == hitbox.event_key:
                         game_state.check_for_hit(hitbox)
+                    # Press ESC to pause
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        eventlist = []
+                        paused = True
+                        screen.blit(game_state.get_background(), (0, 0))
+                        game_state.scoreHandler.update("                   Paused")
+                        allsprites.draw(screen)
+                        pygame.display.update()
+                        while paused:
+                            for event in pygame.event.get():
+                                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                                    paused = False
+                                # TODO: add ability to go back to main menu. currently keeps notes on screen until they fall down
+                                # elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+                                #     paused = False
+                                #     game_state.state = "prestart"
+                                elif event.type == pygame.QUIT:
+                                    paused = False
+                                    going = False
                     elif event.type == pygame.KEYUP:
                         hitbox.unpunch()
                         

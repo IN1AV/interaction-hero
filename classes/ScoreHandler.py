@@ -33,10 +33,13 @@ class ScoreHandler(sprite.Sprite):
         self.score_is_saved = False
 
 
-    def blit_score_text(self):
+    def blit_score_text(self, pause_string=""):
         # Very roundabout way to do this, but after spending way too long digging in
         # the code trying to figure out how to add an extra image I just gave up on that
         # Is self.image even referenced anywhere? How is it drawn?
+        if pause_string:
+            self.image = self.font.render(pause_string, True, (10, 10, 10))
+            return
         text = f"Score: {str(self.score)}"
         padding = 19 - 2*len(str(self.score))
         if self.score_multiplier > 1:
@@ -44,7 +47,10 @@ class ScoreHandler(sprite.Sprite):
         self.image = self.font.render(text, True, (10, 10, 10))
 
     # This is called every frame
-    def update(self):
+    def update(self, pause_string=""):
+        if pause_string:
+            self.blit_score_text(pause_string)
+            return
         if self.game_state.state == 'playing':
             self.blit_score_text()
         # elif self.played_once == True:
