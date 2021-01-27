@@ -38,7 +38,6 @@ class GameState():
         self.combo = ScoreHandler(self.allsprites,self, self.song, 1280/2, 300, "0", 40) 
         # Center the text
         self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2) )
-        self.combo_count = 0
 
         # Multiplier
         self.multiplier = ScoreHandler(self.allsprites,self, self.song, 1280/2, 400, " ", 18)
@@ -93,7 +92,7 @@ class GameState():
 
     def update(self):
 
-        self.combo.change_text(str(self.combo_count))
+        self.combo.change_text(str(self.combo.getCombo()))
         self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2))
 
         self.multiplier.updateMulitplier()
@@ -124,12 +123,12 @@ class GameState():
         if hitbox.hits():
             self.scoreHandler.change_score(10)
             self.multiplier.change_score(10)
-            self.combo_count = self.combo_count + 1
+            self.combo.addCombo()
         else:
             self.sounds_miss.play()
             self.scoreHandler.change_score(-5)
             self.multiplier.change_score(-5)
-            self.combo_count = 0
+            self.combo.resetCombo()
 
 
     def add_gpio_pins(self, gpio_pins):

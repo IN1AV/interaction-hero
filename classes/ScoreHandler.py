@@ -13,6 +13,7 @@ class ScoreHandler(sprite.Sprite):
         self.font = load_font(song.get_font_filename(), self.font_size)
 
         self.score = 0
+        self.combo = 0
 
         # Feel free to play around with these variables
         # Currently they are not used anywhere in the code
@@ -36,6 +37,7 @@ class ScoreHandler(sprite.Sprite):
         self.score = 0
         self.score_streak = 0
         self.score_multiplier = 1
+        self.combo = 0
         self.score_is_saved = False
 
 
@@ -126,3 +128,13 @@ class ScoreHandler(sprite.Sprite):
     
     def updateMulitplier(self):
         self.text = f"{self.score_multiplier}x"
+    
+    def addCombo(self):
+        self.combo = self.combo + 1
+
+    def resetCombo(self):
+        self.combo = 0
+
+    def getCombo(self):
+        return self.combo
+
