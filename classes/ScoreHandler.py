@@ -2,10 +2,15 @@ from pygame import sprite, font
 from utils import load_font
 
 class ScoreHandler(sprite.Sprite):
-    def __init__(self, allsprites, game_state, song):
+    def __init__(self, allsprites, game_state, song, posx, posy, text=None, fontSize=None):
         sprite.Sprite.__init__(self, allsprites)
         self.game_state = game_state
-        self.font = load_font(song.get_font_filename(), 36)
+
+        self.font_size = 18
+        if fontSize:
+            self.font_size = fontSize
+
+        self.font = load_font(song.get_font_filename(), self.font_size)
 
         self.score = 0
 
@@ -19,10 +24,11 @@ class ScoreHandler(sprite.Sprite):
 
         # Flag to see when a score should be saved after an update
         self.score_is_saved = True
+        self.text = text
+        self.image = self.font.render(text, 1, (10, 10, 10))
 
         # Required Sprite attributes
-        self.image = self.font.render("", 1, (10, 10, 10))
-        self.pos = (420, 50)  # Set the location of the text
+        self.pos = (posx, posy)  # Set the location of the text
         self.rect = (self.pos, self.image.get_size())
 
 
@@ -37,14 +43,22 @@ class ScoreHandler(sprite.Sprite):
         # Very roundabout way to do this, but after spending way too long digging in
         # the code trying to figure out how to add an extra image I just gave up on that
         # Is self.image even referenced anywhere? How is it drawn?
-        if pause_string:
-            self.image = self.font.render(pause_string, True, (10, 10, 10))
-            return
-        text = f"Score: {str(self.score)}"
-        padding = 19 - 2*len(str(self.score))
-        if self.score_multiplier > 1:
-            text += padding * " " + f"Multiplier: {str(self.score_multiplier)}"
+        if self.text:
+            text = self.text
+        else:
+            if pause_string:
+                self.image = self.font.render(pause_string, True, (10, 10, 10))
+                return
+
+            
+            text = f"Score: {str(self.score)}"
+
+            # if self.score_multiplier > 1:
+            #     text += padding * " " + f"Multiplier: {str(self.score_multiplier)}"
+
         self.image = self.font.render(text, True, (10, 10, 10))
+        
+
 
     # This is called every frame
     def update(self, pause_string=""):
@@ -98,4 +112,17 @@ class ScoreHandler(sprite.Sprite):
             text = self.game_state.song.get_notes_filename() + ' ' + str(self.score) + '\n'
             f.write(text)
         # print('The highscore is', self.get_high_score(), '- See ScoreHandler.py for new implementation')
-        # print('Your score is', self.score, '- See ScoreHandler.py for new implementation')
+        # print('Your score is', self.score, '- See ScoreHandler.py for new implementation')'
+    
+    def change_text(self, text):
+        if self.text:
+            self.text = text
+    
+    def get_text_width(self):
+        return self.image.get_width()
+
+    def change_pos(self,pos):
+        self.rect = ((pos, self.pos[1]), self.image.get_size())
+    
+    def updateMulitplier(self):
+        self.text = f"{self.score_multiplier}x"
