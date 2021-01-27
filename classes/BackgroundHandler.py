@@ -9,7 +9,7 @@ class BackgroundHandler():
 
     def __init__(self, song):
         # Set the font based of the settings in the Song
-        self.font = load_font("Calibri.ttf", 18)
+        self.font = load_font(song.get_font_filename(), 18)
         # Make it bold
 
         # Get a list of all the background
@@ -60,10 +60,14 @@ class BackgroundHandler():
         background.blit(play_area, play_area_loc)
 
         # Write something on each background
+
+        # Now playing
         text = self.font.render(play_text, 1, (0, 0, 0))
         textpos = text.get_rect(centerx=(text.get_width() / 2))
         textpos.top += 10
-        textpos.left += 560
+        textpos.left += 10
+
+
         background.blit(text, textpos)
         background.convert()
         return background
