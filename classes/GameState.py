@@ -32,7 +32,18 @@ class GameState():
         self.note_dropper = NoteDropper(self.music_player)
 
         # Responsible for managing (high) scores
-        self.scoreHandler = ScoreHandler(self.allsprites,self, self.song) 
+        self.scoreHandler = ScoreHandler(self.allsprites,self, self.song, 1150, 10) 
+
+        # COMBO
+        self.combo = ScoreHandler(self.allsprites,self, self.song, 1280/2, 300, "0", 40) 
+        # Center the text
+        self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2) )
+        self.combo_count = 0
+
+        # Multiplier
+        self.multiplier = ScoreHandler(self.allsprites,self, self.song, 1280/2, 400, " ", 18)
+        # Center the text
+        self.multiplier.change_pos((1280/2) - (self.multiplier.get_text_width() / 2) )
 
         # Load sound which plays when a note is missed
         self.sounds_miss = load_sound(song.get_sound_miss())
@@ -61,6 +72,8 @@ class GameState():
         self.notes_are_dropping = False
         self.song_is_finished = False
         self.scoreHandler.restart()
+        self.combo.restart()
+        self.multiplier.restart()
         self.music_player.restart(move_speed, bpm)
 
 
@@ -79,6 +92,13 @@ class GameState():
 
 
     def update(self):
+
+        self.combo.change_text(str(self.combo_count))
+        self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2))
+
+        self.multiplier.updateMulitplier()
+        self.multiplier.change_pos((1280/2) - (self.multiplier.get_text_width() / 2) )
+
         self.background_handler.update_background()
 
         # While the program is not in the menu it loops through this
@@ -103,9 +123,13 @@ class GameState():
     def check_for_hit(self, hitbox):
         if hitbox.hits():
             self.scoreHandler.change_score(10)
+            self.multiplier.change_score(10)
+            self.combo_count = self.combo_count + 1
         else:
             self.sounds_miss.play()
             self.scoreHandler.change_score(-5)
+            self.multiplier.change_score(-5)
+            self.combo_count = 0
 
 
     def add_gpio_pins(self, gpio_pins):
