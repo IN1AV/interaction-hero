@@ -17,8 +17,8 @@ def main():
     allsprites = pygame.sprite.Group()
 
     # Song to be used in game. Only one can be used.
-    # song = song_library.example_song_short  # Short random song for debugging
-    # song = song_library.example_song_long  # Ode To Joy
+    # song = song_library.debug_song  # Short random song for debugging
+    # song = song_library.ode_to_joy  # Ode To Joy
     song = song_library.tarkan_simarik
 
     # Create game_state instance, this holds all required game info
@@ -39,10 +39,14 @@ def main():
     # Prepare game objects
     clock = pygame.time.Clock()
     # TODO: figure out button colors
-    startButton = Button(560, 300, 140, 40, '      Start', game_state.restart, song.get_font_filename(),
-        allsprites, game_state)
-    quitButton = Button(560, 350, 140, 40, '      Quit', quit, song.get_font_filename(),
-        allsprites, game_state)
+    easyButton = Button(560, 250, 140, 40, '     Easy', lambda: game_state.restart(move_speed=5, bpm=-1), song.get_font_filename(),
+        allsprites, game_state, hover_color=(52, 244, 11))
+    mediumButton = Button(560, 300, 140, 40, '  Medium', lambda: game_state.restart(move_speed=10, bpm=0), song.get_font_filename(),
+        allsprites, game_state, hover_color=(249, 168, 26))
+    hardButton = Button(560, 350, 140, 40, '     Hard', lambda: game_state.restart(move_speed=15, bpm=1), song.get_font_filename(),
+        allsprites, game_state, hover_color=(227, 10, 23))
+    quitButton = Button(560, 400, 140, 40, '     Quit', quit, song.get_font_filename(),
+        allsprites, game_state, hover_color=(10, 10, 10))
 
     # Main loop
     going = True
@@ -70,8 +74,10 @@ def main():
         if game_state.state == 'prestart':
             for event in eventlist:
             # Checks if a mouse is clicked 
-                if event.type == pygame.MOUSEBUTTONDOWN: 
-                    startButton.check_click()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    easyButton.check_click()
+                    mediumButton.check_click()
+                    hardButton.check_click()
                     quitButton.check_click()
 
         # This runs when the users starts a game

@@ -6,16 +6,16 @@ from classes.Song import Song
 tarkan_simarik = Song(
     "tarkan_simarik.txt",
     notes_bpm=280,
-    bg_game_header="Tarkan Simarik",
+    bg_game_header="Now playing: Tarkan - Simarik",
     font_filename="Calibri.ttf"
 )
 
-example_song_short = Song(
-    "example_notes.txt",
-)
-
-example_song_long = Song(
+ode_to_joy = Song(
     'ode_to_joy.txt',
-    bg_game_header="Beethoven - Ode to Joy",
+    bg_game_header="Now playing: Beethoven - Ode to Joy",
     font_filename="Calibri.ttf"
+)
+
+debug_song = Song(
+    "example_notes.txt",
 )

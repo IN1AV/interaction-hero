@@ -47,16 +47,25 @@ class GameState():
         ]
 
 
-    def restart(self):
+    def restart(self, move_speed=10, bpm=0):
+        # 0: default bpm.
+        # -1: half bpm.
+        # 1: 1.5 * bpm
+        if bpm == 0:
+            bpm = self.song.get_notes_bpm()
+        elif bpm < 0:
+            bpm = self.song.get_notes_bpm()//2
+        elif bpm > 0:
+            bpm = int(self.song.get_notes_bpm() * 1.5)
         self.state = 'playing'
         self.notes_are_dropping = False
         self.song_is_finished = False
         self.scoreHandler.restart()
-        self.music_player.restart()
+        self.music_player.restart(move_speed, bpm)
 
 
-    def drop_next_note_sprite(self, note):
-        self.note_dropper.drop(note, self.hitboxes)
+    def drop_next_note_sprite(self, note, move_speed=10):
+        self.note_dropper.drop(note, self.hitboxes, move_speed=move_speed)
 
 
     def get_background(self):
