@@ -93,7 +93,7 @@ def main():
                         eventlist = []
                         paused = True
                         screen.blit(game_state.get_background(), (0, 0))
-                        game_state.scoreHandler.update("                   Paused")
+                        game_state.scoreHandler.update("Paused")
                         allsprites.draw(screen)
                         pygame.display.update()
                         while paused:
