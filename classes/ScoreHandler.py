@@ -21,8 +21,8 @@ class ScoreHandler(sprite.Sprite):
         self.score_is_saved = True
 
         # Required Sprite attributes
-        self.image = self.font.render('', 1, (10, 10, 10))
-        self.pos = (590, 50)  # Set the location of the text
+        self.image = self.font.render("", 1, (10, 10, 10))
+        self.pos = (420, 50)  # Set the location of the text
         self.rect = (self.pos, self.image.get_size())
 
 
@@ -33,24 +33,50 @@ class ScoreHandler(sprite.Sprite):
         self.score_is_saved = False
 
 
-    def get_score_text_to_blit(self):
-        self.score_text = self.font.render('Score: ' + str(self.score), 1, (10, 10, 10))
-        return self.score_text, self.score_text_pos
+    def blit_score_text(self, pause_string=""):
+        # Very roundabout way to do this, but after spending way too long digging in
+        # the code trying to figure out how to add an extra image I just gave up on that
+        # Is self.image even referenced anywhere? How is it drawn?
+        if pause_string:
+            self.image = self.font.render(pause_string, True, (10, 10, 10))
+            return
+        text = f"Score: {str(self.score)}"
+        padding = 19 - 2*len(str(self.score))
+        if self.score_multiplier > 1:
+            text += padding * " " + f"Multiplier: {str(self.score_multiplier)}"
+        self.image = self.font.render(text, True, (10, 10, 10))
 
     # This is called every frame
-    def update(self):
+    def update(self, pause_string=""):
+        if pause_string:
+            self.blit_score_text(pause_string)
+            return
         if self.game_state.state == 'playing':
-            print('Current score: ' + str(self.score))
-            pass
-        elif self.played_once == True:
-            print('Your final score: ' + str(self.score))
-            pass
-
+            self.blit_score_text()
+        # elif self.played_once == True:
+        #     # print('Your final score: ' + str(self.score))
+        #     pass
         if not self.game_state.state == 'playing' and not self.score_is_saved:
             self.save_score()
 
     def change_score(self, score_difference):
-        self.score += score_difference
+        # add to score streak with positive score
+        if score_difference > 0:
+            self.score_streak += 1
+        # else reset streak and multiplier
+        else:
+            self.score_streak = 0
+            self.score_multiplier = 1
+        # change multiplier based on how many notes were hit in succession
+        if self.score_streak >= 75:
+            self.score_multiplier = 8
+        elif self.score_streak >= 50:
+            self.score_multiplier = 4
+        elif self.score_streak >= 25:
+            self.score_multiplier = 2
+        else:
+            self.score_multiplier = 1
+        self.score += score_difference * self.score_multiplier
         
     def get_high_score(self):
         played_song = self.game_state.song.get_notes_filename()
@@ -71,5 +97,5 @@ class ScoreHandler(sprite.Sprite):
         with open('scores.txt', 'a') as f:
             text = self.game_state.song.get_notes_filename() + ' ' + str(self.score) + '\n'
             f.write(text)
-        print('The highscore is', self.get_high_score(), '- See ScoreHandler.py for new implementation')
-        print('Your score is', self.score, '- See ScoreHandler.py for new implementation')
+        # print('The highscore is', self.get_high_score(), '- See ScoreHandler.py for new implementation')
+        # print('Your score is', self.score, '- See ScoreHandler.py for new implementation')

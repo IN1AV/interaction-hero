@@ -40,7 +40,7 @@ class BackgroundHandler():
 
 
     def calculate_play_area_size(self):
-        window_size = (1280, 720)
+        # window_size = (1280, 720)
         play_area = pygame.Surface((440, 720), pygame.SRCALPHA, 32)
         # make the surface white (or other defined bg color)
         play_area.fill(self.background_color)
@@ -63,7 +63,7 @@ class BackgroundHandler():
         text = self.font.render(play_text, 1, (0, 0, 0))
         textpos = text.get_rect(centerx=(text.get_width() / 2))
         textpos.top += 10
-        textpos.left += 10
+        textpos.left += 560
         background.blit(text, textpos)
         background.convert()
         return background

@@ -56,6 +56,6 @@ class Hitbox(pygame.sprite.Sprite):
         self.is_hitting = 0
 
     
-    def drop_new_note(self, music_player_ref, note):
-        self.notes.append(FallingNote(self.lane_index, self.allsprites, music_player_ref, note))
+    def drop_new_note(self, music_player_ref, note, move_speed=10):
+        self.notes.append(FallingNote(self.lane_index, self.allsprites, music_player_ref, note, move_speed=move_speed))
         

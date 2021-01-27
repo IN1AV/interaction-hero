@@ -4,10 +4,15 @@ import utils
 import os
 
 class MusicPlayer():
-    def __init__(self, song, game_state_ref):
-        self.bpm = song.get_notes_bpm()
+    def __init__(self, song, game_state_ref, move_speed=10, bpm=0):
+        self.song = song
+        if bpm:
+            self.bpm = bpm
+        else:
+            self.bpm = song.get_notes_bpm()
         self.game_state = game_state_ref
 
+        self.move_speed = move_speed
         self.drop_next_note_callback = self.game_state.drop_next_note_sprite
         
         self.maten = {
@@ -128,7 +133,8 @@ class MusicPlayer():
             quit()
 
         # Change this in case you want hit notes to make different sounds
-        self.player.set_instrument(10)  
+        # http://www.ccarh.org/courses/253/handout/gminstruments/
+        self.player.set_instrument(0)
 
         # Load all the notes from the notes file
         self.liedje = self._read_file(song.get_notes_filename())
@@ -150,7 +156,19 @@ class MusicPlayer():
         self.next_note_start_time = pygame.time.get_ticks() + initial_delay_ms
 
 
-    def restart(self):
+    def restart(self, move_speed=10, bpm=0):
+        # only change bpm if it is explicitly defined
+        if bpm != 0:
+            self.bpm = bpm
+        else:
+            self.bpm = self.song.get_notes_bpm()
+        self.maten = {
+            "ACHTSTE": 30/self.bpm,
+            "KWART": 60/self.bpm,
+            "HALVE": 120/self.bpm,
+            "HELE": 240/self.bpm
+        }
+        self.move_speed = move_speed
         self.note_index = 0
         self.current_note = self.noten[self.liedje[self.note_index][0]]
         self.current_maat = self.maten[self.liedje[self.note_index][1]]
@@ -193,7 +211,7 @@ class MusicPlayer():
         self.current_maat = self.maten[self.liedje[self.note_index][1]]
 
         # at the end play next note
-        self.drop_next_note_callback(self.liedje[self.note_index])
+        self.drop_next_note_callback(self.liedje[self.note_index], self.move_speed)
 
 
     def update(self):

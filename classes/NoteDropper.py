@@ -15,10 +15,10 @@ class NoteDropper():
         }
 
     
-    def drop(self, note, hitboxes):
+    def drop(self, note, hitboxes, move_speed=10):
         key = note[0][0]
         index = 0
         for drop_check in self.note_combinations[key]:
             if drop_check:
-                hitboxes[index].drop_new_note(self.music_player_ref, note)
+                hitboxes[index].drop_new_note(self.music_player_ref, note, move_speed=move_speed)
             index += 1

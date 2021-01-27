@@ -17,8 +17,9 @@ def main():
     allsprites = pygame.sprite.Group()
 
     # Song to be used in game. Only one can be used.
-    song = song_library.example_song_short  # Short random song for debugging
-    # song = song_library.example_song_long  # Ode To Joy
+    # song = song_library.debug_song  # Short random song for debugging
+    # song = song_library.ode_to_joy  # Ode To Joy
+    song = song_library.tarkan_simarik
 
     # Create game_state instance, this holds all required game info
     game_state = GameState(allsprites, song)
@@ -37,8 +38,15 @@ def main():
 
     # Prepare game objects
     clock = pygame.time.Clock()
-    startButton = Button(500, 300, 140, 40, ' Start', game_state.restart, song.get_font_filename(), allsprites, game_state)
-    quitButton = Button(500, 350, 140, 40, ' Quit', quit, song.get_font_filename(), allsprites, game_state)
+    # TODO: figure out button colors
+    easyButton = Button(560, 250, 140, 40, '     Easy', lambda: game_state.restart(move_speed=5, bpm=-1), song.get_font_filename(),
+        allsprites, game_state, hover_color=(52, 244, 11))
+    mediumButton = Button(560, 300, 140, 40, '  Medium', lambda: game_state.restart(move_speed=10, bpm=0), song.get_font_filename(),
+        allsprites, game_state, hover_color=(249, 168, 26))
+    hardButton = Button(560, 350, 140, 40, '     Hard', lambda: game_state.restart(move_speed=15, bpm=1), song.get_font_filename(),
+        allsprites, game_state, hover_color=(227, 10, 23))
+    quitButton = Button(560, 400, 140, 40, '     Quit', quit, song.get_font_filename(),
+        allsprites, game_state, hover_color=(10, 10, 10))
 
     # Main loop
     going = True
@@ -66,8 +74,10 @@ def main():
         if game_state.state == 'prestart':
             for event in eventlist:
             # Checks if a mouse is clicked 
-                if event.type == pygame.MOUSEBUTTONDOWN: 
-                    startButton.check_click()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    easyButton.check_click()
+                    mediumButton.check_click()
+                    hardButton.check_click()
                     quitButton.check_click()
 
         # This runs when the users starts a game
@@ -78,6 +88,25 @@ def main():
                 for event in eventlist:
                     if event.type == pygame.KEYDOWN and event.unicode == hitbox.event_key:
                         game_state.check_for_hit(hitbox)
+                    # Press ESC to pause
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        eventlist = []
+                        paused = True
+                        screen.blit(game_state.get_background(), (0, 0))
+                        game_state.scoreHandler.update("                   Paused")
+                        allsprites.draw(screen)
+                        pygame.display.update()
+                        while paused:
+                            for event in pygame.event.get():
+                                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                                    paused = False
+                                # TODO: add ability to go back to main menu. currently keeps notes on screen until they fall down
+                                # elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+                                #     paused = False
+                                #     game_state.state = "prestart"
+                                elif event.type == pygame.QUIT:
+                                    paused = False
+                                    going = False
                     elif event.type == pygame.KEYUP:
                         hitbox.unpunch()
                         
