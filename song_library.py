@@ -18,4 +18,5 @@ ode_to_joy = Song(
 
 debug_song = Song(
     "example_notes.txt",
+    font_filename="Calibri.ttf"
 )
