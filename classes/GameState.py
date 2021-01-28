@@ -32,15 +32,15 @@ class GameState():
         self.note_dropper = NoteDropper(self.music_player)
 
         # Responsible for managing (high) scores
-        self.scoreHandler = ScoreHandler(self.allsprites,self, self.song, 1150, 10) 
+        self.scoreHandler = ScoreHandler(self.allsprites,self, self.song, 1280/2, 10)
 
         # COMBO
-        self.combo = ScoreHandler(self.allsprites,self, self.song, 1280/2, 300, "0", 40) 
+        self.combo = ScoreHandler(self.allsprites,self, self.song, 1280/2 - 200, 50, " ", 22)
         # Center the text
         self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2) )
 
         # Multiplier
-        self.multiplier = ScoreHandler(self.allsprites,self, self.song, 1280/2, 400, " ", 18)
+        self.multiplier = ScoreHandler(self.allsprites,self, self.song, 1280/2 + 200, 50, " ", 22)
         # Center the text
         self.multiplier.change_pos((1280/2) - (self.multiplier.get_text_width() / 2) )
 
@@ -91,12 +91,13 @@ class GameState():
 
 
     def update(self):
+        self.scoreHandler.change_pos((1280/2) - (self.scoreHandler.get_text_width() / 2))
 
-        self.combo.change_text(str(self.combo.getCombo()))
-        self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2))
+        self.combo.change_text(f"Combo: {str(self.combo.getCombo())}")
+        self.combo.change_pos((1280/2) - (self.combo.get_text_width() / 2) - 100)
 
         self.multiplier.updateMulitplier()
-        self.multiplier.change_pos((1280/2) - (self.multiplier.get_text_width() / 2) )
+        self.multiplier.change_pos((1280/2) - (self.multiplier.get_text_width() / 2) + 100)
 
         self.background_handler.update_background()
 

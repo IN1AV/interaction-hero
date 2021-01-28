@@ -127,7 +127,7 @@ class ScoreHandler(sprite.Sprite):
         self.rect = ((pos, self.pos[1]), self.image.get_size())
     
     def updateMulitplier(self):
-        self.text = f"{self.score_multiplier}x"
+        self.text = f"Multiplier: {self.score_multiplier}x"
     
     def addCombo(self):
         self.combo = self.combo + 1
